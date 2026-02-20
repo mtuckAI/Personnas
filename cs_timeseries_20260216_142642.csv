@@ -1,0 +1,133 @@
+time,hour_decimal,laptop_mbps,smartphone_mbps,tablet_mbps,smartwatch_mbps,band_2.4GHz,band_5GHz,band_6GHz,total_mbps,total_band_mbps,period,activity
+00:00,0.0,20.0,1.0,1.0,0.01,2.01,0.0,20.0,22.01,22.009999999999998,,"Streaming Netflix 4K in bed
+Messaging friends
+Sleep prep"
+00:30,0.5,15.0,0.5,2.0,0.01,2.51,15.0,0.0,17.51,17.509999999999998,Sleep,"Finishing movie, winding down
+Late night social media scroll"
+01:00,1.0,0.5,0.3,1.5,0.01,2.3099999999999996,0.0,0.0,2.3099999999999996,2.3099999999999996,Sleep,"Devices entering sleep mode
+Cloud photo backup starting"
+01:30,1.5,0.3,0.2,1.0,0.01,1.51,0.0,0.0,1.51,1.51,Sleep,"Deep sleep mode
+Background system updates"
+02:00,2.0,0.3,0.2,0.5,0.01,1.01,0.0,0.0,1.01,1.01,Sleep,"Sleep tracking active
+Scheduled cloud backup"
+02:30,2.5,0.5,0.3,0.5,0.01,1.31,0.0,0.0,1.31,1.31,Sleep,"Minimal network activity
+Periodic sync checks"
+03:00,3.0,1.0,2.0,0.3,0.01,3.3099999999999996,0.0,0.0,3.3099999999999996,3.3099999999999996,Sleep,"Deep sleep continues
+iCloud/Google backup window"
+03:30,3.5,0.8,3.0,0.2,0.01,4.01,0.0,0.0,4.01,4.01,Sleep,"Background maintenance
+App updates downloading"
+04:00,4.0,1.0,5.0,0.2,0.02,1.22,5.0,0.0,6.22,6.22,Sleep,"Continued backup sync
+OS updates"
+04:30,4.5,2.0,4.0,0.3,0.05,2.3499999999999996,4.0,0.0,6.35,6.35,Sleep,"Low activity period
+Backup completion"
+05:00,5.0,3.0,8.0,1.0,0.08,4.08,8.0,0.0,12.08,12.08,Sleep,"Pre-wake prep
+Calendar/email pre-sync"
+05:30,5.5,5.0,12.0,2.0,0.1,7.1,12.0,0.0,19.1,19.1,Sleep,"System wake routines
+Weather/news cache update"
+06:00,6.0,8.0,10.0,3.0,0.15,3.15,18.0,0.0,21.15,21.15,Sleep,"ALARM! First phone check
+Email sync, Instagram, news"
+06:30,6.5,12.0,8.0,2.0,0.12,2.12,20.0,0.0,22.12,22.12,Morning,"Getting ready routine
+Spotify streaming
+Health sync"
+07:00,7.0,15.0,5.0,1.0,0.5,1.5,20.0,0.0,21.5,21.5,Morning,"Breakfast time
+Podcast listening
+Background refresh"
+07:30,7.5,8.0,3.0,0.5,0.3,3.8,8.0,0.0,11.8,11.8,Morning,"Pre-class prep
+Downloading slides
+LMS access"
+08:00,8.0,5.0,2.0,0.3,0.1,7.3999999999999995,0.0,0.0,7.3999999999999995,7.3999999999999995,Morning,"Reviewing notes
+PDF textbook download
+Schedule check"
+08:30,8.5,4.0,1.5,2.0,0.08,7.58,0.0,0.0,7.58,7.58,Morning,"Walking to class
+Campus WiFi
+Music continues"
+09:00,9.0,6.0,1.0,3.0,0.1,4.1,6.0,0.0,10.1,10.1,Morning,"First lecture starts
+Cloud note-taking
+Digital textbook"
+09:30,9.5,10.0,1.5,2.5,0.15,4.15,10.0,0.0,14.15,14.15,Classes,"Lecture continues
+Reference lookup
+Recording stream"
+10:00,10.0,8.0,2.0,2.0,0.1,4.1,8.0,0.0,12.1,12.1,Classes,"Class wrapping up
+Saving notes
+Quick email"
+10:30,10.5,12.0,5.0,3.0,0.08,3.08,17.0,0.0,20.08,20.08,Classes,"BREAK - Coffee & social media
+TikTok, Snapchat
+Short-form video"
+11:00,11.0,10.0,10.0,2.0,0.06,2.06,20.0,0.0,22.06,22.06,Classes,"Second class - Discussion
+Collaborative docs
+Screen share"
+11:30,11.5,6.0,8.0,1.5,0.05,1.55,14.0,0.0,15.55,15.55,Classes,"Active participation
+Real-time research
+Fact-checking"
+12:00,12.0,12.0,12.0,2.0,0.08,2.08,24.0,0.0,26.08,26.08,Classes,"Lunch at dining hall
+YouTube videos
+Social catch-up"
+12:30,12.5,10.0,15.0,3.0,0.1,3.1,25.0,0.0,28.1,28.1,Midday,"Lunch continues
+Group chat
+Planning afternoon"
+13:00,13.0,8.0,8.0,4.0,0.08,0.08,20.0,0.0,20.08,20.08,Midday,"Library study begins
+Database research
+JSTOR, PubMed"
+13:30,13.5,15.0,4.0,3.0,0.06,3.06,19.0,0.0,22.06,22.06,Midday,"Deep research mode
+PDF downloads
+Reference manager"
+14:00,14.0,18.0,3.0,2.5,0.05,5.55,0.0,18.0,23.55,23.55,Midday,"Writing research paper
+Google Docs
+Spotify music"
+14:30,14.5,12.0,2.0,2.0,0.1,4.1,12.0,0.0,16.1,16.1,Midday,"Continued writing
+Multiple tabs
+Citation management"
+15:00,15.0,8.0,3.0,1.5,0.25,4.75,8.0,0.0,12.75,12.75,Midday,"Gym time!
+Fitness tracking
+Workout app sync"
+15:30,15.5,10.0,2.5,1.0,0.3,3.8,10.0,0.0,13.8,13.8,Afternoon,"Workout continues
+Music streaming
+Quick social checks"
+16:00,16.0,12.0,2.0,0.5,0.2,2.7,12.0,0.0,14.7,14.7,Afternoon,"Post-gym, heading back
+WiFi transition
+Music continues"
+16:30,16.5,8.0,1.5,0.3,0.15,1.95,8.0,0.0,9.950000000000001,9.95,Afternoon,"Quick shower
+Reconnecting to dorm WiFi
+Day's data syncing"
+17:00,17.0,5.0,3.0,2.0,0.1,10.1,0.0,0.0,10.1,10.1,Afternoon,"Homework starts
+Video tutorials
+Coding environment"
+17:30,17.5,3.0,4.0,4.0,0.08,3.08,8.0,0.0,11.08,11.08,Afternoon,"Intensive project work
+Multiple tabs
+Cloud storage sync"
+18:00,18.0,15.0,5.0,3.0,0.1,3.1,20.0,0.0,23.1,23.1,Afternoon,"Homework continues
+GitHub activity
+Multi-device productivity"
+18:30,18.5,20.0,8.0,5.0,0.12,0.12,13.0,20.0,33.12,33.12,Evening,"Dinner time!
+Netflix/YouTube
+Texting friends"
+19:00,19.0,25.0,10.0,8.0,0.15,0.15,18.0,25.0,43.15,43.15,Evening,"Dinner entertainment
+Streaming content
+Social browsing"
+19:30,19.5,22.0,12.0,10.0,0.1,0.1,22.0,22.0,44.1,44.1,Evening,"Study group video call
+Zoom/Discord 1080p
+Screen sharing"
+20:00,20.0,18.0,8.0,6.0,0.08,0.08,14.0,18.0,32.08,32.08,Evening,"Video call continues
+Note-taking
+Shared presentations"
+20:30,20.5,12.0,6.0,4.0,0.06,0.06,22.0,0.0,22.06,22.06,Evening,"Call wrapping up
+Finalizing notes
+Scheduling next"
+21:00,21.0,8.0,10.0,2.0,0.05,2.05,18.0,0.0,20.05,20.05,Evening,"Social/Gaming hour
+Online gaming
+Discord voice"
+21:30,21.5,10.0,12.0,3.0,0.08,3.08,22.0,0.0,25.08,25.08,Evening,"Continued gaming/social
+Heavy social media
+Mobile games"
+22:00,22.0,15.0,8.0,8.0,0.1,0.1,31.0,0.0,31.1,31.1,Evening,"Evening wind-down
+4K streaming
+Messaging friends"
+22:30,22.5,20.0,10.0,12.0,0.06,0.06,22.0,20.0,42.06,42.06,Night,"Binge watching
+Twitch stream
+Last social checks"
+23:00,23.0,22.0,8.0,10.0,0.04,0.04,18.0,22.0,40.04,40.04,Night,"Pre-sleep routine
+TikTok/Instagram scroll
+Meditation app"
+23:30,23.5,20.0,6.0,8.0,0.02,0.02,14.0,20.0,34.02,34.019999999999996,Night,"Getting ready for bed
+Setting alarms
+Devices to sleep mode"

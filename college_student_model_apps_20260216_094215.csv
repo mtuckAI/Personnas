@@ -1,0 +1,14 @@
+application,bandwidth_mbps,latency_sensitive,preferred_band
+4K Streaming,25.0,False,6GHz
+1080p Streaming,8.0,False,5GHz
+720p Streaming,3.0,False,5GHz
+Video Call HD,4.0,True,6GHz
+Video Call SD,1.5,True,5GHz
+Online Gaming,3.0,True,6GHz
+Web Browsing,2.0,False,5GHz
+Social Media,5.0,False,5GHz
+Music Streaming,1.5,False,5GHz
+Cloud Sync,5.0,False,5GHz
+Email,0.5,False,2.4GHz
+Messaging,0.3,False,2.4GHz
+Background Idle,0.1,False,2.4GHz

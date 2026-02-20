@@ -1,0 +1,5 @@
+device,display_name,color,line_style,wifi_capability,max_bandwidth_mbps,typical_usage_mbps,power_mode,preferred_band,device_count,enabled
+laptop,Laptop,#4ECDC4,-,WiFi 6E,100,15.0,high,6GHz,1,True
+smartphone,Smartphone,#FF6B6B,-,WiFi 6E,50,8.0,medium,5GHz,1,True
+tablet,Tablet,#45B7D1,-,WiFi 6,40,5.0,medium,5GHz,1,True
+smartwatch,Smartwatch,#FFA07A,--,WiFi 4,5,0.2,low,2.4GHz,1,True

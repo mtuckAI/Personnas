@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24-Hour College Student Bandwidth Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .chart-section {
+            margin-bottom: 40px;
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .chart-title {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+        
+        .small-charts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .small-chart-container {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .small-chart-title {
+            font-size: 1.1em;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .small-chart-wrapper {
+            position: relative;
+            height: 250px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            color: #718096;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 24-Hour College Student Bandwidth Analysis</h1>
+        <p class="subtitle">WiFi 6/6E Multi-Device Usage Profile</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Peak Bandwidth</div>
+                <div class="stat-value">44.1 Mbps</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Average Bandwidth</div>
+                <div class="stat-value">18.3 Mbps</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Daily Data Usage</div>
+                <div class="stat-value">193.5 GB</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active Devices</div>
+                <div class="stat-value">4</div>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <div class="chart-title">Device Bandwidth Overlay</div>
+            <div class="chart-container">
+                <canvas id="overlayChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <div class="chart-title">WiFi Band Utilization</div>
+            <div class="chart-container">
+                <canvas id="bandChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="small-charts">
+            <div class="small-chart-container">
+                <div class="small-chart-title">💻 Laptop</div>
+                <div class="small-chart-wrapper">
+                    <canvas id="laptopChart"></canvas>
+                </div>
+            </div>
+            <div class="small-chart-container">
+                <div class="small-chart-title">📱 Smartphone</div>
+                <div class="small-chart-wrapper">
+                    <canvas id="smartphoneChart"></canvas>
+                </div>
+            </div>
+            <div class="small-chart-container">
+                <div class="small-chart-title">📱 Tablet</div>
+                <div class="small-chart-wrapper">
+                    <canvas id="tabletChart"></canvas>
+                </div>
+            </div>
+            <div class="small-chart-container">
+                <div class="small-chart-title">⌚ Smartwatch</div>
+                <div class="small-chart-wrapper">
+                    <canvas id="smartwatchChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Generated from CollegeStudentBandwidthModel Python Analysis<br>
+            Data represents typical 24-hour usage pattern for WiFi 6/6E environment
+        </div>
+    </div>
+
+    <script>
+        // Data from Python analysis
+        const timeLabels = ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"];
+        const laptopData = [20.0, 15.0, 0.5, 0.3, 0.3, 0.5, 1.0, 0.8, 1.0, 2.0, 3.0, 5.0, 8.0, 12.0, 15.0, 8.0, 5.0, 4.0, 6.0, 10.0, 8.0, 12.0, 10.0, 6.0, 12.0, 10.0, 8.0, 15.0, 18.0, 12.0, 8.0, 10.0, 12.0, 8.0, 5.0, 3.0, 15.0, 20.0, 25.0, 22.0, 18.0, 12.0, 8.0, 10.0, 15.0, 20.0, 22.0, 20.0];
+        const smartphoneData = [1.0, 0.5, 0.3, 0.2, 0.2, 0.3, 2.0, 3.0, 5.0, 4.0, 8.0, 12.0, 10.0, 8.0, 5.0, 3.0, 2.0, 1.5, 1.0, 1.5, 2.0, 5.0, 10.0, 8.0, 12.0, 15.0, 8.0, 4.0, 3.0, 2.0, 3.0, 2.5, 2.0, 1.5, 3.0, 4.0, 5.0, 8.0, 10.0, 12.0, 8.0, 6.0, 10.0, 12.0, 8.0, 10.0, 8.0, 6.0];
+        const tabletData = [1.0, 2.0, 1.5, 1.0, 0.5, 0.5, 0.3, 0.2, 0.2, 0.3, 1.0, 2.0, 3.0, 2.0, 1.0, 0.5, 0.3, 2.0, 3.0, 2.5, 2.0, 3.0, 2.0, 1.5, 2.0, 3.0, 4.0, 3.0, 2.5, 2.0, 1.5, 1.0, 0.5, 0.3, 2.0, 4.0, 3.0, 5.0, 8.0, 10.0, 6.0, 4.0, 2.0, 3.0, 8.0, 12.0, 10.0, 8.0];
+        const smartwatchData = [0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.02, 0.05, 0.08, 0.1, 0.15, 0.12, 0.5, 0.3, 0.1, 0.08, 0.1, 0.15, 0.1, 0.08, 0.06, 0.05, 0.08, 0.1, 0.08, 0.06, 0.05, 0.1, 0.25, 0.3, 0.2, 0.15, 0.1, 0.08, 0.1, 0.12, 0.15, 0.1, 0.08, 0.06, 0.05, 0.08, 0.1, 0.06, 0.04, 0.02];
+        const band24Data = [1.01, 2.01, 2.01, 1.31, 0.81, 1.01, 1.31, 1.01, 1.22, 2.3499999999999996, 4.08, 7.1, 3.15, 2.12, 1.5, 0.8, 5.3999999999999995, 6.08, 3.1, 2.65, 2.1, 3.08, 2.06, 1.55, 2.08, 3.1, 0.08, 3.06, 2.55, 2.1, 4.75, 3.8, 0.7, 0.44999999999999996, 7.1, 3.08, 3.1, 0.12, 0.15, 0.1, 0.08, 0.06, 2.05, 3.08, 0.1, 0.06, 0.04, 0.02];
+        const band5Data = [1.0, 15.5, 0.3, 0.2, 0.2, 0.3, 2.0, 3.0, 5.0, 4.0, 8.0, 0.0, 8.0, 20.0, 20.0, 11.0, 2.0, 1.5, 7.0, 11.5, 10.0, 17.0, 10.0, 14.0, 12.0, 10.0, 20.0, 19.0, 3.0, 14.0, 8.0, 10.0, 14.0, 9.5, 3.0, 8.0, 20.0, 13.0, 8.0, 10.0, 14.0, 22.0, 8.0, 10.0, 31.0, 12.0, 18.0, 14.0];
+        const band6Data = [20.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 12.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 12.0, 15.0, 0.0, 0.0, 18.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 20.0, 35.0, 34.0, 18.0, 0.0, 10.0, 12.0, 0.0, 30.0, 22.0, 20.0];
+        const activities = ["00:00 - Streaming Netflix 4K in bed (Laptop)\nMessaging friends (Phone)\nSleep prep (Watch)", "00:30 - Finishing movie, winding down\nLate night social media scroll (Phone)", "01:00 - Devices entering sleep mode\nCloud photo backup starting (Phone)", "01:30 - Deep sleep mode\nBackground system updates (Laptop)", "02:00 - Sleep tracking active (Watch)\nScheduled cloud backup (Phone, Tablet)", "02:30 - Minimal network activity\nPeriodic sync checks", "03:00 - Deep sleep continues\niCloud/Google backup window (Phone)", "03:30 - Background maintenance\nApp updates downloading", "04:00 - Continued backup sync\nOS updates (Laptop)", "04:30 - Low activity period\nBackup completion", "05:00 - Pre-wake prep\nCalendar/email pre-sync", "05:30 - System wake routines\nWeather/news cache update", "06:00 - ALARM! First phone check in bed\nEmail sync, Instagram scroll, news apps", "06:30 - Getting ready routine\nSpotify streaming (Phone)\nMorning health sync (Watch)", "07:00 - Breakfast time\nPodcast listening\nBackground app refresh", "07:30 - Pre-class prep begins\nDownloading lecture slides (Laptop)\nLMS access, Canvas/Blackboard", "08:00 - Reviewing notes\nPDF textbook download (Tablet)\nClass schedule check (Phone)", "08:30 - Walking to class\nTransition to campus WiFi\nMusic streaming continues", "09:00 - First lecture starts\nCloud note-taking (Laptop: Google Docs)\nDigital textbook (Tablet)", "09:30 - Lecture continues\nReference materials lookup\nLecture recording stream", "10:00 - Class wrapping up\nSaving notes to cloud\nQuick email check", "10:30 - BREAK - Coffee & social media\nInstagram, TikTok, Snapchat (Phone)\nHeavy short-form video", "11:00 - Second class (Discussion seminar)\nCollaborative doc editing\nScreen share viewing", "11:30 - Active class participation\nReal-time research during discussion\nFact-checking", "12:00 - Lunch at dining hall\nYouTube videos while eating (Phone)\nSocial media catch-up", "12:30 - Lunch continues\nGroup chat conversations\nPlanning afternoon", "13:00 - Library study session begins\nAcademic database research (Laptop)\nJSTOR, PubMed access", "13:30 - Deep research mode\nPDF journal downloads\nReference manager sync", "14:00 - Writing research paper\nGoogle Docs collaboration\nSpotify background music", "14:30 - Continued writing\nMultiple reference tabs open\nCitation management", "15:00 - Gym time!\nFitness tracking (Watch)\nWorkout app sync", "15:30 - Workout continues\nMusic streaming (mostly offline)\nQuick social checks between sets", "16:00 - Post-gym, heading back\nCampus to dorm WiFi transition\nMusic continues", "16:30 - Quick shower\nDevices reconnecting to dorm WiFi\nDay's data syncing", "17:00 - Homework starts\nVideo tutorials (YouTube EDU)\nCoding environment active", "17:30 - Intensive project work\nMultiple browser tabs\nCloud storage sync", "18:00 - Homework continues\nGitHub activity\nMulti-device productivity", "18:30 - Dinner time!\nNetflix/YouTube during meal\nTexting friends", "19:00 - Dinner entertainment\nStreaming content\nSocial media browsing", "19:30 - Study group video call\nZoom/Discord 1080p\nScreen sharing, collaborative docs", "20:00 - Video call continues\nNote-taking during call\nShared presentations", "20:30 - Call wrapping up\nFinalizing group notes\nScheduling next session", "21:00 - Social/Gaming hour\nOnline gaming OR Reddit/YouTube\nDiscord voice chat", "21:30 - Continued gaming/social\nHeavy social media\nCasual mobile games (Tablet)", "22:00 - Evening wind-down\n4K streaming (Netflix/Prime/Disney+)\nMessaging friends", "22:30 - Binge watching continues\nTwitch stream alternative\nLast social checks", "23:00 - Pre-sleep routine\nFinal TikTok/Instagram scroll\nMeditation app", "23:30 - Getting ready for bed\nSetting alarms\nDevices moving to sleep mode"];
+        
+        // Chart.js custom plugin for vertical line
+        const verticalLinePlugin = {
+            id: 'verticalLine',
+            afterDraw: (chart) => {
+                if (chart.tooltip?._active?.length) {
+                    const ctx = chart.ctx;
+                    const activePoint = chart.tooltip._active[0];
+                    const x = activePoint.element.x;
+                    const topY = chart.scales.y.top;
+                    const bottomY = chart.scales.y.bottom;
+                    
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(x, topY);
+                    ctx.lineTo(x, bottomY);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = 'rgba(255, 0, 0, 0.7)';
+                    ctx.setLineDash([5, 5]);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+        };
+        
+        Chart.register(verticalLinePlugin);
+        
+        // Custom tooltip positioner
+        Chart.Tooltip.positioners.dynamic = function(elements, eventPosition) {
+            const chart = this.chart;
+            const chartArea = chart.chartArea;
+            const chartWidth = chartArea.right - chartArea.left;
+            const midpoint = chartArea.left + (chartWidth / 2);
+            
+            if (eventPosition.x < midpoint) {
+                return {
+                    x: eventPosition.x + 20,
+                    y: chartArea.top + 10,
+                    xAlign: 'left',
+                    yAlign: 'top'
+                };
+            } else {
+                return {
+                    x: eventPosition.x - 20,
+                    y: chartArea.top + 10,
+                    xAlign: 'right',
+                    yAlign: 'top'
+                };
+            }
+        };
+        
+        // Common chart options
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true,
+                    position: 'dynamic',
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                    padding: 12,
+                    titleFont: { size: 13, weight: 'bold' },
+                    bodyFont: { size: 12, family: 'Courier New' },
+                    displayColors: true,
+                    boxWidth: 8,
+                    boxHeight: 8,
+                    callbacks: {
+                        title: (items) => {
+                            return `⏰ ${items[0].label}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                    ticks: {
+                        callback: function(value, index) {
+                            return index % 4 === 0 ? this.getLabelForValue(value) : '';
+                        }
+                    }
+                },
+                y: {
+                    grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                    beginAtZero: true
+                }
+            }
+        };
+        
+        // Overlay Chart
+        new Chart(document.getElementById('overlayChart'), {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [
+                    {
+                        label: 'Laptop',
+                        data: laptopData,
+                        borderColor: '#4ECDC4',
+                        backgroundColor: 'rgba(78, 205, 196, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#4ECDC4',
+                        pointHoverBorderColor: 'white',
+                        pointHoverBorderWidth: 2,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Smartphone',
+                        data: smartphoneData,
+                        borderColor: '#FF6B6B',
+                        backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#FF6B6B',
+                        pointHoverBorderColor: 'white',
+                        pointHoverBorderWidth: 2,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Tablet',
+                        data: tabletData,
+                        borderColor: '#45B7D1',
+                        backgroundColor: 'rgba(69, 183, 209, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#45B7D1',
+                        pointHoverBorderColor: 'white',
+                        pointHoverBorderWidth: 2,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Smartwatch',
+                        data: smartwatchData,
+                        borderColor: '#FFA07A',
+                        backgroundColor: 'rgba(255, 160, 122, 0.1)',
+                        borderWidth: 3,
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#FFA07A',
+                        pointHoverBorderColor: 'white',
+                        pointHoverBorderWidth: 2,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: { padding: 15, font: { size: 12 } }
+                    },
+                    tooltip: {
+                        ...commonOptions.plugins.tooltip,
+                        callbacks: {
+                            title: (items) => `⏰ ${items[0].label}`,
+                            afterTitle: (items) => '━━━━━━━━━━━━━━━━',
+                            label: (context) => {
+                                return `${context.dataset.label}: ${context.parsed.y.toFixed(2)} Mbps`;
+                            },
+                            afterBody: (items) => {
+                                const idx = items[0].dataIndex;
+                                const total = laptopData[idx] + smartphoneData[idx] + tabletData[idx] + smartwatchData[idx];
+                                return `\n━━━━━━━━━━━━━━━━\nTotal: ${total.toFixed(1)} Mbps\n━━━━━━━━━━━━━━━━\n🎯 ${activities[idx]}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Band Chart
+        new Chart(document.getElementById('bandChart'), {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [
+                    {
+                        label: '2.4 GHz',
+                        data: band24Data,
+                        borderColor: '#FF6B9D',
+                        backgroundColor: 'rgba(255, 107, 157, 0.6)',
+                        borderWidth: 2,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        tension: 0.4
+                    },
+                    {
+                        label: '5 GHz',
+                        data: band5Data,
+                        borderColor: '#4ECDC4',
+                        backgroundColor: 'rgba(78, 205, 196, 0.6)',
+                        borderWidth: 2,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        tension: 0.4
+                    },
+                    {
+                        label: '6 GHz',
+                        data: band6Data,
+                        borderColor: '#95E1D3',
+                        backgroundColor: 'rgba(149, 225, 211, 0.6)',
+                        borderWidth: 2,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: { padding: 15, font: { size: 12 } }
+                    },
+                    tooltip: {
+                        ...commonOptions.plugins.tooltip,
+                        callbacks: {
+                            title: (items) => `⏰ ${items[0].label}`,
+                            afterTitle: (items) => '━━━━━━━━━━━━━━━━',
+                            label: (context) => {
+                                const total = band24Data[context.dataIndex] + band5Data[context.dataIndex] + band6Data[context.dataIndex];
+                                const percent = (context.parsed.y / total * 100).toFixed(1);
+                                return `${context.dataset.label}: ${context.parsed.y.toFixed(1)} Mbps (${percent}%)`;
+                            },
+                            afterBody: (items) => {
+                                const idx = items[0].dataIndex;
+                                return `\n━━━━━━━━━━━━━━━━\n🎯 ${activities[idx]}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    ...commonOptions.scales,
+                    y: {
+                        ...commonOptions.scales.y,
+                        stacked: true
+                    }
+                }
+            }
+        });
+        
+        // Individual device charts
+        const createDeviceChart = (canvasId, data, color, label) => {
+            new Chart(document.getElementById(canvasId), {
+                type: 'line',
+                data: {
+                    labels: timeLabels,
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        borderColor: color,
+                        backgroundColor: color + '40',
+                        borderWidth: 2,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: color,
+                        pointHoverBorderColor: 'white',
+                        pointHoverBorderWidth: 2,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        tooltip: {
+                            ...commonOptions.plugins.tooltip,
+                            callbacks: {
+                                title: (items) => `⏰ ${items[0].label}`,
+                                label: (context) => `${context.parsed.y.toFixed(2)} Mbps`,
+                                afterLabel: (context) => {
+                                    const avg = data.reduce((a,b) => a+b) / data.length;
+                                    const max = Math.max(...data);
+                                    return `\nAvg: ${avg.toFixed(2)} Mbps\nPeak: ${max.toFixed(2)} Mbps`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+        
+        createDeviceChart('laptopChart', laptopData, '#4ECDC4', 'Laptop');
+        createDeviceChart('smartphoneChart', smartphoneData, '#FF6B6B', 'Smartphone');
+        createDeviceChart('tabletChart', tabletData, '#45B7D1', 'Tablet');
+        createDeviceChart('smartwatchChart', smartwatchData, '#FFA07A', 'Smartwatch');
+    </script>
+</body>
+</html>
